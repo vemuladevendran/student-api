@@ -1,5 +1,8 @@
-const { createUser } = require('../controllers/users')
+const { createUser, login, updateUser, deleteUser } = require('../controllers/users')
 
-module.exports = function initRoutes(app) {
-    app.get('/api/v1/users', createUser);
+module.exports = function userRoutes(app) {
+    app.post('/api/v1/users', createUser);
+    app.post('/api/v1/login', login);
+    app.put('/api/v1/users/:id', updateUser);
+    app.delete('/api/v1/users/:id', deleteUser);
 };

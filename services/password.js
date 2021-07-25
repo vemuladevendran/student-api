@@ -9,11 +9,11 @@ const hashPassword = (plainPassword) => {
 }
 
 const verifyPassword = (password, passwordHash) => {
-    returnbcrypt.compare(password, passwordHash)
+    return bcrypt.compare(password, passwordHash)
 }
 
 
 module.exports = {
     hash: hashPassword,
-    password: verifyPassword,
+    verify: verifyPassword,
 };
