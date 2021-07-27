@@ -3,7 +3,8 @@
 const Users = require('../../models/users');
 const PasswordServe = require('../../services/password');
 const Token = require('../../services/token');
-
+const otpServe = require('../../services/otp-generate');
+const mailServe = require('../../services/email');
 // creating user
 const createUser = async (req, res, next) => {
     try {
@@ -15,8 +16,14 @@ const createUser = async (req, res, next) => {
         req.body.password = await PasswordServe.hash(req.body.password);
         const result = await Users.create(req.body);
         const { password, ...data } = result.toObject();
-        return res.json(data);
 
+        // generate otp
+        const otp =  await otpServe.generateOtp(req.body.id);
+        //  sending verification mail
+
+        mailServe.sendOtp({ reciver: req.body.email, otp: `http://localhost:3000/otp/${result.id}/${otp}` });
+
+        return res.json(data);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: error.message, code: 'INTERNAL_ERROR' });
@@ -116,7 +123,7 @@ const updateUser = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
     try {
-        const results = await Users.findOneAndUpdate({ id: req.params.id }, {isDeleted: true});
+        const results = await Users.findOneAndUpdate({ id: req.params.id }, { isDeleted: true });
         return res.json('user deleted');
     } catch (error) {
         console.error(error);
