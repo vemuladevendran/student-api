@@ -23,7 +23,6 @@ const createUser = async (req, res, next) => {
 };
 
 
-
 const login = async (req, res, next) => {
 
     try {
@@ -58,7 +57,7 @@ const login = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
     try {
-        const results = await Users.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const results = await Users.findOneAndUpdate({id: req.params.id}, req.body,{ new: true });
         return res.json(results);
     } catch (error) {
         console.error(error);
@@ -69,7 +68,7 @@ const updateUser = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
     try {
-        const results = await Users.findByIdAndRemove(req.params.id);
+        const results = await Users.findByIdAndRemove({id: req.params.id});
         return res.json('user deleted');
     } catch (error) {
         console.error(error);
