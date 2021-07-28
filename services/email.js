@@ -24,9 +24,7 @@ const sendOtp = ({ reciver, otp }) => {
         text: otp,
     };
 
-    // nodemailer semdmail to reciver
     transporter.sendMail(mailOptions, function (error, info) {
-        console.log(mailOptions);
         if (error) {
             console.log(error);
         } else {
@@ -35,7 +33,6 @@ const sendOtp = ({ reciver, otp }) => {
         transporter.close();
     });
 };
-
 
 module.exports = {
     sendOtp
