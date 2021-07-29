@@ -29,7 +29,7 @@ const login = async (req, res, next) => {
         // if user details successfully checked 
         //  generating token if details is correct
 
-        const token = Token.generate({ id: user.id, });
+        const token = Token.generate({ id: user.id, role: user.role });
         return res.json({ token: token });
     }
 

@@ -1,5 +1,5 @@
 const { login } = require('../controllers/login');
 
-module.export = function loginRouts(app) {
+module.exports = function loginRoutes(app) {
     app.post('/api/v1/login', login);
 }

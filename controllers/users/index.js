@@ -7,6 +7,14 @@ const mailServe = require('../../services/email');
 // creating user
 const createUser = async (req, res, next) => {
     try {
+        // checking role of creator 
+        // const role = req.query.role;
+        // if (role !== 'ADMIN') {
+        //     return res.json('your not allowed for this operation');
+        // };
+
+
+        // checking email exist or not
         const email = await Users.findOne({ email: req.body.email });
         if (email) {
             return res.status(400).json({ message: 'Email Already exist' });
@@ -21,12 +29,12 @@ const createUser = async (req, res, next) => {
 
         //  sending verification mail
 
-        mailServe.sendOtp({ reciver: req.body.email, otp: `http://localhost:3000/otp/${result.id}/${otp}` });
+        mailServe.sendOtp({ reciver: req.body.email, otp: `http://localhost:3000/api/v1/otp/${result.id}/${otp}` });
 
         return res.json(data);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: error.message, code: 'INTERNAL_ERROR' });
+        return res.status(500).json({ message: error.message, code: 'INTERNAL_ERROR' });
     }
 };
 // get all users
@@ -37,12 +45,12 @@ const getUsers = async (req, res, next) => {
             // password field is removing in get data -- ( projection )
             {
                 isDeleted: false,
-                isEmailVerified: true
+                // isEmailVerified: true
             },
             { password: false })
         return res.json(users);
     } catch (error) {
-        res.status(500).json({ message: error.message, code: 'INTERNAL_ERROR' });
+        return res.status(500).json({ message: error.message, code: 'INTERNAL_ERROR' });
     }
 }
 
@@ -59,9 +67,9 @@ const getUserById = async (req, res, next) => {
                 id: req.params.id
             },
             { password: false });
-        res.json(result);
+        return res.json(result);
     } catch (error) {
-        res.status(500).json({ message: error.message, code: 'INTERNAL_ERROR' });
+        return res.status(500).json({ message: error.message, code: 'INTERNAL_ERROR' });
     }
 };
 
@@ -70,13 +78,15 @@ const getUserById = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
     try {
+        const { email, ...data } = req.body;
+
         const results = await Users.findOneAndUpdate(
             // checking user
             {
                 id: req.params.id,
                 isDeleted: false
             },
-            req.body, { new: true });
+            data, { new: true });
         return res.json(results);
     } catch (error) {
         console.error(error);
@@ -97,10 +107,20 @@ const deleteUser = async (req, res, next) => {
 };
 
 
+const verifyUser = async (req, res) => {
+    try {
+        await otpServe.verifyOtp(req.params.id, req.paramas.otp);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: error.message });
+    }
+}
+
 module.exports = {
     createUser,
     updateUser,
     deleteUser,
     getUsers,
     getUserById,
+    verifyUser,
 }
