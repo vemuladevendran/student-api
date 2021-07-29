@@ -45,7 +45,7 @@ const getUsers = async (req, res, next) => {
             // password field is removing in get data -- ( projection )
             {
                 isDeleted: false,
-                // isEmailVerified: true
+                isEmailVerified: true
             },
             { password: false })
         return res.json(users);
@@ -78,6 +78,8 @@ const getUserById = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
     try {
+        //  email id  will not be update
+        // removing email id from the doc and updating the user
         const { email, ...data } = req.body;
 
         const results = await Users.findOneAndUpdate(
@@ -86,7 +88,9 @@ const updateUser = async (req, res, next) => {
                 id: req.params.id,
                 isDeleted: false
             },
-            data, { new: true });
+            data,
+            { new: true }
+        );
         return res.json(results);
     } catch (error) {
         console.error(error);
@@ -95,8 +99,11 @@ const updateUser = async (req, res, next) => {
 
 };
 
+// delete user
+
 const deleteUser = async (req, res, next) => {
     try {
+        // cheaking user
         const results = await Users.findOneAndUpdate({ id: req.params.id }, { isDeleted: true });
         return res.json('user deleted');
     } catch (error) {
@@ -106,6 +113,7 @@ const deleteUser = async (req, res, next) => {
 
 };
 
+// verifing otp
 
 const verifyUser = async (req, res) => {
     try {
