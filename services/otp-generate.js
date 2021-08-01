@@ -21,32 +21,20 @@ const generateOtp = async (id) => {
 const verifyOtp = async (id, otp) => {
 
     try {
-        const otpObj = await Otp.findOne(id);
-
+        const otpObj = await Otp.findOne({ userId: id });
+        // console.log(otpObj)
         if (!otpObj) {
             console.log('Invalid Link')
-            return res.status(400).send(`
-        <h1>Invalid Link</h1>
-        `)
         };
 
         if (otpObj.otp === otp) {
             // exceute
             const result = await Users.findOneAndUpdate(id, { isEmailVerified: true }, { new: true });
             const removeOtp = await Otp.findOneAndRemove(id);
-            return res.send(`
-            <h1>Success</h1>
-            `);
         };
-
-        return res.status(400).send(`
-            <h1>Invalid Link</h1>
-            `);
-
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: error.message });
     }
 
 }

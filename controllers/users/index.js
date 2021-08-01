@@ -25,10 +25,9 @@ const createUser = async (req, res, next) => {
         const { password, ...data } = result.toObject();
 
         // generate otp
-        const otp = await otpServe.generateOtp(req.body.id);
+        const otp = await otpServe.generateOtp(result.id);
 
         //  sending verification mail
-
         mailServe.sendOtp({ reciver: req.body.email, otp: `http://localhost:3000/api/v1/otp/${result.id}/${otp}` });
 
         return res.json(data);
@@ -117,7 +116,7 @@ const deleteUser = async (req, res, next) => {
 
 const verifyUser = async (req, res) => {
     try {
-        await otpServe.verifyOtp(req.params.id, req.paramas.otp);
+        await otpServe.verifyOtp(req.params.id, req.params.otp);
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: error.message });
