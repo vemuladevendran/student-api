@@ -4,6 +4,8 @@ const Users = require('../../models/users');
 const PasswordServe = require('../../services/password');
 const otpServe = require('../../services/otp-generate');
 const mailServe = require('../../services/email');
+const otpGenerator = require('otp-generator');
+
 // creating user
 const createUser = async (req, res, next) => {
     try {
@@ -19,8 +21,12 @@ const createUser = async (req, res, next) => {
         if (email) {
             return res.status(400).json({ message: 'Email Already exist' });
         };
+
+        // default password
+        const defaultPassword = otpGenerator.generate(6, { upperCase: true, alphabets: true, specialChars: true });
+        
         // hashing password using bcrypt
-        req.body.password = await PasswordServe.hash(req.body.password);
+        req.body.password = await PasswordServe.hash(defaultPassword);
         const result = await Users.create(req.body);
         const { password, ...data } = result.toObject();
 
@@ -29,17 +35,13 @@ const createUser = async (req, res, next) => {
 
         //  sending verification mail
 
-        // const emailHeader = 'CLICK THE ACTIVATE BUTTON TO ACTIVATE YOUR ACCOUNT';
-        // const emailContent = 'For security purpose we are recommended to your default password give below by updating your password';
-        // const userName = result.firstname;
-        // const purpose = 'activationLink';
-        // const buttonName = 'ACTIVATE';
-        // const otpLink = `http://localhost:3000/api/v1/otp/${result.id}/${otp}`;
-        // const defaultPassword = '';
+        const otpLink = `http://localhost:3000/api/v1/otp/${result.id}/${otp}`;
         mailServe.sendOtp({
             reciver: req.body.email,
             emailContent: `<h1>ACTIVATION LINK</h1><br>
     <p>Click the below Activate button to activate your account</p><br>
+    <p style="font-weight: bold">For security purpose please update the default password given below</p><br>
+    <p>Default Password : <span style="font-weight: bold">${defaultPassword}</span></p>
     <button type="button" style="padding: 1rem 3rem; background-color: #70b0ed; border:0px; font-weight: bold"><a href="${otpLink}" style="color: white" target="_blank">ACTIVATE</a></button>`
         });
 
