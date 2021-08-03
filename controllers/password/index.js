@@ -10,7 +10,7 @@ const mailServe = require('../../services/email');
 
 const updatePassword = async (req, res) => {
     try {
-        const user = await Users.findOne({ isDeleted: false, email: req.prams.email });
+        const user = await Users.findOne({ isDeleted: false, email: req.body.email });
         // checking password
         if (!user) {
             console.error('user not found');
@@ -25,13 +25,16 @@ const updatePassword = async (req, res) => {
             return res.status(400).json({ message: 'Invalid Details' });
         };
 
+        req.body.newPassword = await PasswordServe.hash(req.body.newPassword);
+
         const result = await Users.findOneAndUpdate(
             // checking user
             {
                 id: user.id,
             },
-            req.body.password, { new: true });
-        return res.json(result);
+            { password: req.body.newPassword },
+            { new: true });
+        return res.json('password updated successfully');
 
     } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -40,21 +43,30 @@ const updatePassword = async (req, res) => {
 
 // forget password
 const forgetPassword = async (req, res) => {
-    const user = await Users.findOne({ email: req.body.email, isDeleted: false });
-    // cheaking user
-    if (!user) {
-        return res.status(400).json({ message: 'user not found' })
+    try {
+        const user = await Users.findOne({ email: req.body.email, isDeleted: false });
+        // cheaking user
+        if (!user) {
+            return res.status(400).json({ message: 'user not found' })
+        }
+
+        // generate otp
+        const otp = await otpServe.generateOtp(user.id);
+
+        //  sending forgetpassword mail
+
+        const otpLink = `http://localhost:3000/api/v1/verifyforgetpassword/${user.id}/${otp}`;
+        mailServe.sendOtp({
+            reciver: req.body.email,
+            emailContent: `<h1>FORGET PASSWORD LINK</h1><br>
+<p>To Reset Your Password Click The Below Reset Button</p><br>
+<button type="button" style="padding: 1rem 3rem; background-color: #70b0ed; border:0px; font-weight: bold"><a href="${otpLink}" style="color: white" target="_blank">Reset</a></button>`
+        });
+        return res.status(200).json({ message: 'forget password request is send your mail id' })
+
+    } catch (error) {
+        return res.status(500).json({ message: message.error });
     }
-
-    // generate otp
-    const otp = await otpServe.generateOtp(req.body.id);
-
-    //  sending forgetpassword mail
-
-    mailServe.sendOtp({ reciver: req.body.email, otp: `http://localhost:3000/api/v1/otp/forgetpassword/${user.id}/${otp}` });
-
-    return res.status(200).json({ message: 'forget password request as send your mail id' })
-
 };
 
 //  verify otp and change password
@@ -62,14 +74,16 @@ const forgetPassword = async (req, res) => {
 const verifyForgetPassword = async (req, res) => {
     try {
         // verifying otp
-        await otpServe.verifyOtp(req.params.id, req.paramas.otp);
+        await otpServe.verifyOtp(req.params.id, req.params.otp);
+
+        req.body.password = await PasswordServe.hash(req.body.password);
 
         //  updating password
-        await Users.findOneAndUpdate({ id: req.prams.id, isDeleted: false }, req.body, { new: true });
+        await Users.findOneAndUpdate({ id: req.params.id, isDeleted: false }, { password: req.body.password }, { new: true });
 
         return res.status(200).json({ message: 'password reset was successfully complected' })
     } catch (error) {
-        return res.status(500).json({ message: message.error });
+        return res.status(500).json({ message: error.message });
     }
 }
 

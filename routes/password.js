@@ -3,5 +3,5 @@ const {updatePassword, forgetPassword, verifyForgetPassword} = require('../contr
 module.exports = function passwordRoutes(app) {
     app.post('/api/v1/updatepassword', updatePassword);
     app.post('/api/v1/forgetpassword', forgetPassword);
-    app.post('/api/v1/verifyforgetpassword', verifyForgetPassword);
+    app.post('/api/v1/verifyforgetpassword/:id/:otp', verifyForgetPassword);
 };

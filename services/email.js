@@ -15,12 +15,12 @@ const transporter = nodemailer.createTransport({
 
 //  nodemailer sender
 
-const sendOtp = ({ reciver, otp }) => {
+const sendOtp = ({ reciver, otp, emailContent }) => {
     const mailOptions = {
         from: 'kodetech100@gmail.com',
         to: reciver,
         subject: 'OTP',
-        text: otp,
+        html: emailContent
     };
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {

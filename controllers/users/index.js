@@ -28,7 +28,20 @@ const createUser = async (req, res, next) => {
         const otp = await otpServe.generateOtp(result.id);
 
         //  sending verification mail
-        mailServe.sendOtp({ reciver: req.body.email, otp: `http://localhost:3000/api/v1/otp/${result.id}/${otp}` });
+
+        // const emailHeader = 'CLICK THE ACTIVATE BUTTON TO ACTIVATE YOUR ACCOUNT';
+        // const emailContent = 'For security purpose we are recommended to your default password give below by updating your password';
+        // const userName = result.firstname;
+        // const purpose = 'activationLink';
+        // const buttonName = 'ACTIVATE';
+        // const otpLink = `http://localhost:3000/api/v1/otp/${result.id}/${otp}`;
+        // const defaultPassword = '';
+        mailServe.sendOtp({
+            reciver: req.body.email,
+            emailContent: `<h1>ACTIVATION LINK</h1><br>
+    <p>Click the below Activate button to activate your account</p><br>
+    <button type="button" style="padding: 1rem 3rem; background-color: #70b0ed; border:0px; font-weight: bold"><a href="${otpLink}" style="color: white" target="_blank">ACTIVATE</a></button>`
+        });
 
         return res.json(data);
     } catch (error) {
