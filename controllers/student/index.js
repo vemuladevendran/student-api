@@ -1,6 +1,7 @@
 'use strict'
 
 const Student = require('../../models/student');
+const fs = require('fs/promises');
 
 
 // creating student
@@ -13,13 +14,21 @@ const createStudent = async (req, res) => {
             return res.status(400).json('Student RollNumber Or ExamNumer already exist')
         };
 
+        //  extracting image from req
+
+        if (req.file?.originalname) {
+            const fileExt = req.file.originalname.split('.').pop();
+            await fs.rename(req.file.path, `${req.file.path}.${fileExt}`);
+            const staticHost = 'http://localhost:3000';
+            req.body.photo = `${staticHost}/static/contributors/${req.file.filename}.${fileExt}`;
+        };
+
         const result = await Student.create(req.body);
         return res.json(result);
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: error.message });
     }
-
 };
 
 

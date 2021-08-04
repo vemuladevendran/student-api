@@ -7,6 +7,7 @@ const StudentSchema = new mongoose.Schema({
     id: { type: String, default: uuidv4, unique: true },
     firstName: { type: String, require: true },
     lastname: { type: String, require: true },
+    photo: { type: String, trim: true},
     phoneNumber: { type: String, require: true },
     email: { type: String, require: true, unique: true },
     branch: { type: String, require: true },
