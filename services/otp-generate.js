@@ -25,16 +25,19 @@ const verifyOtp = async (id, otp) => {
         // console.log(otpObj)
         if (!otpObj) {
             console.log('Invalid Link')
+            return false;
         };
 
         if (otpObj.otp === otp) {
             // exceute
             const result = await Users.findOneAndUpdate(id, { isEmailVerified: true }, { new: true });
             const removeOtp = await Otp.findOneAndRemove(id);
+            return true;
         };
 
     } catch (error) {
         console.error(error);
+        return false;
     }
 
 }

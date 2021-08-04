@@ -32,7 +32,7 @@ const updatePassword = async (req, res) => {
             {
                 id: user.id,
             },
-            { password: req.body.newPassword },
+            { password: req.body.newPassword, isDefaultPassword: false },
             { new: true });
         return res.json('password updated successfully');
 

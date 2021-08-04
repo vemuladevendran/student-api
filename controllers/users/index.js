@@ -24,7 +24,7 @@ const createUser = async (req, res, next) => {
 
         // default password
         const defaultPassword = otpGenerator.generate(6, { upperCase: true, alphabets: true, specialChars: true });
-        
+
         // hashing password using bcrypt
         req.body.password = await PasswordServe.hash(defaultPassword);
         const result = await Users.create(req.body);
@@ -131,7 +131,15 @@ const deleteUser = async (req, res, next) => {
 
 const verifyUser = async (req, res) => {
     try {
-        await otpServe.verifyOtp(req.params.id, req.params.otp);
+       const result =  await otpServe.verifyOtp(req.params.id, req.params.otp);
+      
+       if(result === true) {
+           return res.status(200).send(`<h1>Success</h1>`);
+       }
+
+       return res.status(400).send(`<h1>Invalid Link</h1>`);
+       
+        
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: error.message });

@@ -14,6 +14,7 @@ const UserSchema = new mongoose.Schema({
     isEmailVerified: { type: Boolean, default: false },
     isBlocked: { type: Boolean, default: false },
     isDeleted: { type: Boolean, default: false },
+    isDefaultPassword: { type: Boolean, default: true },
     createdAt: { type: Date, default: Date.now},
 });
 
