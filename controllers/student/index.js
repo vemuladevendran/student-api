@@ -20,7 +20,7 @@ const createStudent = async (req, res) => {
             const fileExt = req.file.originalname.split('.').pop();
             await fs.rename(req.file.path, `${req.file.path}.${fileExt}`);
             const staticHost = 'http://localhost:3000';
-            req.body.photo = `${staticHost}/static/contributors/${req.file.filename}.${fileExt}`;
+            req.body.photo = `${staticHost}/static/students/${req.file.filename}.${fileExt}`;
         };
 
         const result = await Student.create(req.body);
