@@ -30,6 +30,7 @@ const StudentSchema = new mongoose.Schema({
     section: { type: String, require: true },
     isDeleted: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now },
+    lastUpdate: { type: Date, default: Date.now },
     createdBy: { type: String, require: true, default: 'Admin' }
 });
 

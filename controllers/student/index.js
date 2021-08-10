@@ -70,6 +70,8 @@ const getStudentById = async (req, res, next) => {
 
 const updateStudent = async (req, res) => {
     try {
+        req.body.lastUpdate = Date.now();
+
         const doc = await Student.findOneAndUpdate(
             // checking student
             {

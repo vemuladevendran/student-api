@@ -9,13 +9,13 @@ const UserSchema = new mongoose.Schema({
     lastname: { type: String, require: true },
     phoneNumber: { type: String, require: true },
     email: { type: String, require: true, unique: true },
-    password: { type: String, require: true },
     role: { type: String, default: 'user' },
+    password: { type: String, require: true },
     isEmailVerified: { type: Boolean, default: false },
     isBlocked: { type: Boolean, default: false },
     isDeleted: { type: Boolean, default: false },
     isDefaultPassword: { type: Boolean, default: true },
-    createdAt: { type: Date, default: Date.now},
+    createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('User', UserSchema);
