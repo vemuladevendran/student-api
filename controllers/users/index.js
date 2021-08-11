@@ -10,8 +10,8 @@ const otpGenerator = require('otp-generator');
 const createUser = async (req, res, next) => {
     try {
         // checking role of creator 
-        // const role = req.query.role;
-        // if (role !== 'ADMIN') {
+        // const isAdmin = req.query.isAdmin;
+        // if (isAdmin !== true) {
         //     return res.json('your not allowed for this operation');
         // };
 
@@ -131,15 +131,15 @@ const deleteUser = async (req, res, next) => {
 
 const verifyUser = async (req, res) => {
     try {
-       const result =  await otpServe.verifyOtp(req.params.id, req.params.otp);
-      
-       if(result === true) {
-           return res.status(200).send(`<h1>Success</h1>`);
-       }
+        const result = await otpServe.verifyOtp(req.params.id, req.params.otp);
 
-       return res.status(400).send(`<h1>Invalid Link</h1>`);
-       
-        
+        if (result === true) {
+            return res.status(200).send(`<h1>Success</h1>`);
+        }
+
+        return res.status(400).send(`<h1>Invalid Link</h1>`);
+
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: error.message });
