@@ -1,6 +1,6 @@
 const { createUser, updateUser, deleteUser, getUsers, getUserById, verifyUser } = require('../controllers/users');
 
-const { checkToken } = require('../services/auth')
+const { checkToken } = require('../services/auth');
 module.exports = function userRoutes(app) {
     // app.post('/api/v1/users', createUser);
     app.post('/api/v1/users', checkToken, createUser);
