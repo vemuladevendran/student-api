@@ -9,6 +9,6 @@ const optSchema = new mongoose.Schema({
     timestamps: true
 })
 
-optSchema.index({ createdAt: 1 }, { expireAfterSeconds: 10 });
+optSchema.index({ createdAt: 1 }, { expireAfterSeconds: 500 });
 
 module.exports = mongoose.model('otp', optSchema);

@@ -55,11 +55,12 @@ const forgetPassword = async (req, res) => {
 
         //  sending forgetpassword mail
 
-        const otpLink = `http://localhost:3000/api/v1/verifyforgetpassword/${user.id}/${otp}`;
+        const otpLink = `http://localhost:4200/reset-password/${user.id}/${otp}`;
         mailServe.sendOtp({
             reciver: req.body.email,
             emailContent: `<h1>FORGET PASSWORD LINK</h1><br>
 <p>To Reset Your Password Click The Below Reset Button</p><br>
+<p>This link is vaild for 5 Minutes only</p><br>
 <button type="button" style="padding: 1rem 3rem; background-color: #70b0ed; border:0px; font-weight: bold"><a href="${otpLink}" style="color: white" target="_blank">Reset</a></button>`
         });
         return res.status(200).json({ message: 'forget password request is send your mail id' })
@@ -86,7 +87,6 @@ const verifyForgetPassword = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 }
-
 
 
 
