@@ -9,13 +9,7 @@ const otpGenerator = require('otp-generator');
 // creating user
 const createUser = async (req, res, next) => {
     try {
-        // checking role of creator 
-        // const isAdmin = req.query.isAdmin;
-        // if (isAdmin !== true) {
-        //     return res.json('your not allowed for this operation');
-        // };
-
-
+       
         // checking email exist or not
         const email = await Users.findOne({ email: req.body.email });
         if (email) {

@@ -2,18 +2,30 @@
 
 const Report = require('../../models/report');
 const Student = require('../../models/student');
+const Users = require('../../models/users');
 
 
 // create report
 const createReport = async (req, res) => {
 
     try {
+
+        const creatingUser = await Users.findOne({ id: req.params.id });
+        if (!creatingUser) {
+            return res.status(400).json('Invalid details')
+        }
+
+
         const student = await Student.findOne({ rollNumber: req.studentRollNumber });
         console.log(student);
 
         if (!student) {
             return res.status(400).json({ message: 'Roll Number not exist' });
         }
+
+        req.body.createdBy = creatingUser.firstName;
+
+
         const result = await Report.create(req.body);
         return res.json(result);
     } catch (error) {

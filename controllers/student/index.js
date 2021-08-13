@@ -9,10 +9,7 @@ const fs = require('fs/promises');
 
 const createStudent = async (req, res) => {
     try {
-        console.log(req.params.id);
-
         const creatingUser = await Users.findOne({ id: req.params.id });
-        console.log(creatingUser);
         if (!creatingUser) {
             return res.status(400).json('Invalid details')
         }

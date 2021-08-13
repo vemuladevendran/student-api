@@ -1,12 +1,22 @@
 'use strict'
 
 const Circular = require('../../models/circular');
+const Users = require('../../models/users');
 
 
 // create circular
 const createCircular = async (req, res) => {
 
     try {
+
+        const creatingUser = await Users.findOne({ id: req.params.id });
+        if (!creatingUser) {
+            return res.status(400).json('Invalid details')
+        }
+
+        req.body.createdBy = creatingUser.firstName;
+
+
         const doc = await Circular.create(req.body);
         return res.json(doc);
     } catch (error) {

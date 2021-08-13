@@ -2,7 +2,6 @@ const { createUser, updateUser, deleteUser, getUsers, getUserById, verifyUser } 
 
 const { checkToken } = require('../services/auth');
 module.exports = function userRoutes(app) {
-    // app.post('/api/v1/users', createUser);
     app.post('/api/v1/users', checkToken, createUser);
     app.get('/api/v1/users', checkToken, getUsers);
     app.get('/api/v1/users/:id', checkToken, getUserById);
