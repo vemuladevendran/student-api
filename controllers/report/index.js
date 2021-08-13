@@ -1,14 +1,21 @@
 'use strict'
 
 const Report = require('../../models/report');
+const Student = require('../../models/student');
 
 
 // create report
 const createReport = async (req, res) => {
 
     try {
-        const doc = await Report.create(req.body);
-        return res.json(doc);
+        const student = await Student.findOne({ rollNumber: req.studentRollNumber });
+        console.log(student);
+
+        if (!student) {
+            return res.status(400).json({ message: 'Roll Number not exist' });
+        }
+        const result = await Report.create(req.body);
+        return res.json(result);
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: error.message });

@@ -1,6 +1,7 @@
 'use strict'
 
 const Student = require('../../models/student');
+const Users = require('../../models/users');
 const fs = require('fs/promises');
 
 
@@ -8,6 +9,14 @@ const fs = require('fs/promises');
 
 const createStudent = async (req, res) => {
     try {
+        console.log(req.params.id);
+
+        const creatingUser = await Users.findOne({ id: req.params.id });
+        console.log(creatingUser);
+        if (!creatingUser) {
+            return res.status(400).json('Invalid details')
+        }
+
         const doc = await Student.findOne({ examNumber: req.examNumber, rollNumber: req.rollNumber });
         //  checking student already exist or not
         if (doc) {
@@ -22,6 +31,8 @@ const createStudent = async (req, res) => {
             const staticHost = 'http://localhost:3000';
             req.body.photo = `${staticHost}/static/students/${req.file.filename}.${fileExt}`;
         };
+
+        req.body.createdBy = creatingUser.firstName;
 
         const result = await Student.create(req.body);
         return res.json(result);

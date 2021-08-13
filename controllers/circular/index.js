@@ -38,7 +38,10 @@ const getCircularByBranch = async (req, res) => {
 
         const result = await Circular.find({
             isDeleted: false,
-            circularFor: 'all', branch,
+            $or: [
+                { circularFor: 'all' },
+                { circularFor: branch }
+            ]
         })
 
 

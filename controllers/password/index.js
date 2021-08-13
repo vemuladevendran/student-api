@@ -10,7 +10,7 @@ const mailServe = require('../../services/email');
 
 const updatePassword = async (req, res) => {
     try {
-        const user = await Users.findOne({ isDeleted: false, email: req.body.email });
+        const user = await Users.findOne({ isDeleted: false, id: req.params.id });
         // checking password
         if (!user) {
             console.error('user not found');
@@ -22,7 +22,7 @@ const updatePassword = async (req, res) => {
 
         if (!isPasswordMatch) {
             console.error('password wrong');
-            return res.status(400).json({ message: 'Invalid Details' });
+            return res.status(400).json({ message: 'Incorrect Password' });
         };
 
         req.body.newPassword = await PasswordServe.hash(req.body.newPassword);
