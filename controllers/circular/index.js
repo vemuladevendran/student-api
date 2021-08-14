@@ -44,7 +44,7 @@ const getCircular = async (req, res) => {
 const getCircularByBranch = async (req, res) => {
     try {
 
-        const branch = 'it'
+        const branch = req.params.branch;
 
         const result = await Circular.find({
             isDeleted: false,

@@ -24,7 +24,6 @@ const verifyOtp = async (id, otp) => {
         const otpObj = await Otp.findOne({ userId: id });
         // console.log(otpObj)
         if (!otpObj) {
-            console.log('Invalid Link')
             return false;
         };
 
@@ -34,6 +33,8 @@ const verifyOtp = async (id, otp) => {
             const removeOtp = await Otp.findOneAndRemove(id);
             return true;
         };
+
+        return false;
 
     } catch (error) {
         console.error(error);

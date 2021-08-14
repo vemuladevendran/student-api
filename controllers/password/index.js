@@ -75,7 +75,13 @@ const forgetPassword = async (req, res) => {
 const verifyForgetPassword = async (req, res) => {
     try {
         // verifying otp
-        await otpServe.verifyOtp(req.params.id, req.params.otp);
+        const checkOtp = await otpServe.verifyOtp(req.params.id, req.params.otp);
+
+        console.log(checkOtp);
+
+        if (checkOtp === false) {
+            return res.status(400).json({ message: 'Invalid Link' })
+        }
 
         req.body.password = await PasswordServe.hash(req.body.password);
 
