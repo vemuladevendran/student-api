@@ -44,8 +44,14 @@ const createStudent = async (req, res) => {
 
 const getStudents = async (req, res) => {
 
+    const filters = {
+        branch: req?.query?.branch,
+        currentStudingyear: req?.query?.currentStudingyear,
+        isDeleted: false
+    }
+
     try {
-        const result = await Student.find({ isDeleted: false });
+        const result = await Student.find(filters);
         return res.json(result);
     } catch (error) {
         console.error(error);
@@ -72,6 +78,8 @@ const getStudentById = async (req, res, next) => {
         return res.status(500).json({ message: error.message, code: 'INTERNAL_ERROR' });
     }
 };
+
+
 
 
 //  update student
