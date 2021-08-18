@@ -8,7 +8,10 @@ const MarksSchema = new mongoose.Schema({
     rollNumber: { type: String, require: true },
     studentName: { type: String, require: true },
     marks: { type: Object, require: true },
-    examName: { type: String, require: true },
+    currentStudingyear: { type: String, require: true },
+    examNumber: { type: String, require: true },
+    branch: { type: String, require: true },
+    section: { type: String, require: true },
     isDeleted: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now },
     createdBy: { type: String, require: true, default: 'Admin' }

@@ -19,7 +19,19 @@ const createMarks = async (req, res) => {
 
 const getMarks = async (req, res) => {
     try {
-        const result = await Marks.find({ isDeleted: false })
+
+        const filters = {
+            isDeleted: false,
+            $or: [
+                {
+                    branch: req?.query?.branch,
+                    currentStudingyear: req?.query?.currentStudingyear,
+                    section: req?.query.section
+                }
+            ]
+        }
+
+        const result = await Marks.find(filters)
         res.send(200).json(result);
     } catch (error) {
         console.log(error);
@@ -73,10 +85,10 @@ const deleteMarks = async (req, res) => {
 
 
 
-module.exports = (
+module.exports = {
     createMarks,
     getMarks,
     getMarksByRollnumber,
     updateMarks,
     deleteMarks
-)
+}
