@@ -21,6 +21,7 @@ const createStudent = async (req, res) => {
         };
 
         //  extracting image from req
+        console.log(req.body);
 
         if (req.file?.originalname) {
             const fileExt = req.file.originalname.split('.').pop();
@@ -45,9 +46,13 @@ const createStudent = async (req, res) => {
 const getStudents = async (req, res) => {
 
     const filters = {
-        branch: req?.query?.branch,
-        currentStudingyear: req?.query?.currentStudingyear,
-        isDeleted: false
+        isDeleted: false,
+        $or: [
+            {
+                branch: req?.query?.branch,
+                currentStudingyear: req?.query?.currentStudingyear,
+            }
+        ]
     }
 
     try {
