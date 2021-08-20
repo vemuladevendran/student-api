@@ -14,10 +14,22 @@ const createStudent = async (req, res) => {
             return res.status(400).json('Invalid details')
         }
 
-        const doc = await Student.findOne({ examNumber: req.examNumber, rollNumber: req.rollNumber });
+        const filters = {
+            $or: [
+                {
+                    examNumber: req?.body.examNumber
+                },
+                {
+                    rollNumber: req?.body.rollNumber,
+                }
+            ]
+        }
+
+
+        const doc = await Student.findOne(filters);
         //  checking student already exist or not
         if (doc) {
-            return res.status(400).json('Student RollNumber Or ExamNumer already exist')
+            return res.status(400).json({ message: 'Student RollNumber Or ExamNumer already exist' })
         };
 
         //  extracting image from req
@@ -47,12 +59,13 @@ const getStudents = async (req, res) => {
 
     const filters = {
         isDeleted: false,
-        $or: [
-            {
-                branch: req?.query?.branch,
-                currentStudingyear: req?.query?.currentStudingyear,
-            }
-        ]
+        // $or: [
+        //     {
+        //         branch: req?.query?.branch
+        //     }, {
+        //         currentStudingyear: req?.query?.year,
+        //     }
+        // ]
     }
 
     try {
@@ -93,14 +106,24 @@ const updateStudent = async (req, res) => {
     try {
         req.body.lastUpdate = Date.now();
 
-        const doc = await Student.findOneAndUpdate(
+        //  extracting image from req
+        console.log(req.body);
+
+        if (req.file?.originalname) {
+            const fileExt = req.file.originalname.split('.').pop();
+            await fs.rename(req.file.path, `${req.file.path}.${fileExt}`);
+            const staticHost = 'http://localhost:3000';
+            req.body.photo = `${staticHost}/static/students/${req.file.filename}.${fileExt}`;
+        };
+
+        const result = await Student.findOneAndUpdate(
             // checking student
             {
                 id: req.params.id,
                 isDeleted: false,
             },
             req.body, { new: true });
-        return res.json(doc);
+        return res.json(result);
 
     } catch (error) {
         return res.status(500).json({ message: error.message });

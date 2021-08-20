@@ -7,7 +7,7 @@ module.exports = function studentRoutes(app) {
     app.post('/api/v1/student/:id',upload.single('photo'),createStudent);
     app.get('/api/v1/student', getStudents);
     app.get('/api/v1/student/:id', getStudentById);
-    app.put('/api/v1/student/:id', updateStudent);
+    app.put('/api/v1/student/:id',upload.single('photo'),updateStudent);
     app.delete('/api/v1/student/:id', deleteStudent);
 };
 
