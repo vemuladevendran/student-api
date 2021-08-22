@@ -9,7 +9,8 @@ const createCircular = async (req, res) => {
 
     try {
 
-        const creatingUser = await Users.findOne({ id: req.params.id });
+
+        const creatingUser = await Users.findOne({ id: req.query.id });
         if (!creatingUser) {
             return res.status(400).json('Invalid details')
         }

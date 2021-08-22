@@ -98,6 +98,23 @@ const getStudentById = async (req, res, next) => {
 };
 
 
+// get students by branch and year
+
+const getStudentsByBranchAndYear = async (req, res) => {
+    try {
+        const filterDetails = {
+            branch: req.params.branch,
+            currentStudingyear: req.params.currentStudingyear
+        }
+        const result = await Student.findOne(filterDetails);
+        return res.json(result);
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message, code: 'INTERNAL_ERROR' });
+    }
+}
+
+
 
 
 //  update student
@@ -148,6 +165,7 @@ module.exports = {
     createStudent,
     getStudents,
     getStudentById,
+    getStudentsByBranchAndYear,
     updateStudent,
     deleteStudent,
 };

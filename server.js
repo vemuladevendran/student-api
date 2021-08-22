@@ -9,6 +9,7 @@ const passwordRoutes = require('./routes/password');
 const circularRoutes = require('./routes/circular');
 const ReportRoutes = require('./routes/report');
 const marksRoutes = require('./routes/marks');
+const subjectRoutes = require('./routes/subjects');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
@@ -25,6 +26,7 @@ passwordRoutes(app);
 circularRoutes(app);
 ReportRoutes(app);
 marksRoutes(app);
+subjectRoutes(app);
 
 const PORT = 3000;
 app.listen(PORT, () => {
