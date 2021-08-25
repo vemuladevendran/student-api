@@ -59,13 +59,13 @@ const getStudents = async (req, res) => {
 
     const filters = {
         isDeleted: false,
-        // $or: [
-        //     {
-        //         branch: req?.query?.branch
-        //     }, {
-        //         currentStudingyear: req?.query?.year,
-        //     }
-        // ]
+        $or: [
+            {
+                branch: req?.query?.branch
+            }, {
+                currentStudingyear: req?.query?.currentStudingyear,
+            }
+        ]
     }
 
     try {
@@ -103,10 +103,11 @@ const getStudentById = async (req, res, next) => {
 const getStudentsByBranchAndYear = async (req, res) => {
     try {
         const filterDetails = {
+            isDeleted: false,
             branch: req.params.branch,
             currentStudingyear: req.params.currentStudingyear
         }
-        const result = await Student.findOne(filterDetails);
+        const result = await Student.find(filterDetails);
         return res.json(result);
 
     } catch (error) {

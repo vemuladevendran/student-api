@@ -71,6 +71,4 @@ const CseSubjects = {
 
 }
 
-module.exports = {
-    CseSubjects,
-}
+module.exports = CseSubjects
