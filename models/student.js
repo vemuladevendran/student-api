@@ -23,7 +23,7 @@ const StudentSchema = new mongoose.Schema({
     nameOf10School: { type: String },
     nameOf12School: { type: String },
     yearOfCollegeJoined: { type: String },
-    currentStudingyear: { type: String, require: true },
+    currentStudingYear: { type: String, require: true },
     rollNumber: { type: String, require: true },
     examNumber: { type: String, require: true },
     branch: { type: String, require: true },

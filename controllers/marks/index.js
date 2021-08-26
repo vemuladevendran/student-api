@@ -25,7 +25,7 @@ const getMarks = async (req, res) => {
             $or: [
                 {
                     branch: req?.query?.branch,
-                    currentStudingyear: req?.query?.currentStudingyear,
+                    currentStudingYear: req?.query?.currentStudingYear,
                     section: req?.query.section
                 }
             ]
