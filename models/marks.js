@@ -8,7 +8,7 @@ const MarksSchema = new mongoose.Schema({
   studentId: { type: String, require: true },
   rollNumber: { type: String, require: true },
   studentName: { type: String, require: true },
-  marks: { type: Object, require: true },
+  subjectsMarks: { type: Object, require: true },
   currentStudingYear: { type: String, require: true },
   examNumber: { type: String, require: true },
   branch: { type: String, require: true },
