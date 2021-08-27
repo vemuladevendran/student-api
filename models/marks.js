@@ -10,6 +10,7 @@ const MarksSchema = new mongoose.Schema({
   studentName: { type: String, require: true },
   subjectsMarks: { type: Object, require: true },
   currentStudingYear: { type: String, require: true },
+  examName : {type: String, require: true},
   examNumber: { type: String, require: true },
   branch: { type: String, require: true },
   section: { type: String, require: true },

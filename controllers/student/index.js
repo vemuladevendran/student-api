@@ -67,7 +67,6 @@ const getStudents = async (req, res) => {
     filters.currentStudingYear = req.query.currentStudingYear;
   }
 
-  console.log(filters);
 
 
   try {
