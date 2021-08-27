@@ -29,7 +29,8 @@ const createUser = async (req, res, next) => {
 
         //  sending verification mail
 
-        const otpLink = `http://localhost:3000/api/v1/otp/${result.id}/${otp}`;
+        // const otpLink = `http://localhost:3000/api/v1/otp/${result.id}/${otp}`;
+        const otpLink = `https://studentmanagmentdb.herokuapp.com/api/v1/otp/${result.id}/${otp}`;
         mailServe.sendOtp({
             reciver: req.body.email,
             emailContent: `<h1>ACTIVATION LINK</h1><br>
