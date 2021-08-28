@@ -29,7 +29,7 @@ const verifyOtp = async (id, otp) => {
 
         if (otpObj.otp === otp) {
             // exceute
-            const result = await Users.findOneAndUpdate(id, { isEmailVerified: true }, { new: true });
+            const result = await Users.findOneAndUpdate(id, { isEmailVerified: true });
             const removeOtp = await Otp.findOneAndRemove(id);
             return true;
         };
