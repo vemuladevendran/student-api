@@ -55,7 +55,7 @@ const forgetPassword = async (req, res) => {
 
         //  sending forgetpassword mail
 
-        const otpLink = `http://localhost:4200/reset-password/${user.id}/${otp}`;
+        const otpLink = `https://pecstudentui.web.app/reset-password/${user.id}/${otp}`;
         mailServe.sendOtp({
             reciver: req.body.email,
             emailContent: `<h1>FORGET PASSWORD LINK</h1><br>

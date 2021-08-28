@@ -3,7 +3,7 @@
 const Student = require("../../models/student");
 const Users = require("../../models/users");
 const fs = require("fs/promises");
-
+const PasswordServe = require("../../services/password");
 // creating student
 
 const createStudent = async (req, res) => {
@@ -42,6 +42,7 @@ const createStudent = async (req, res) => {
       const staticHost = "https://studentmanagmentdb.herokuapp.com";
       req.body.photo = `${staticHost}/static/students/${req.file.filename}.${fileExt}`;
     }
+    req.body.password = await PasswordServe.hash(req.body.examNumber);
 
     req.body.createdBy = creatingUser.firstName;
 
@@ -67,8 +68,6 @@ const getStudents = async (req, res) => {
   if (req.query.currentStudingYear) {
     filters.currentStudingYear = req.query.currentStudingYear;
   }
-
-
 
   try {
     const result = await Student.find(filters);

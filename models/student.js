@@ -28,6 +28,7 @@ const StudentSchema = new mongoose.Schema({
     examNumber: { type: String, require: true },
     branch: { type: String, require: true },
     section: { type: String, require: true },
+    password: {type: String, require: true},
     isDeleted: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now },
     lastUpdate: { type: Date, default: Date.now },
