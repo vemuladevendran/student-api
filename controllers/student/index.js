@@ -92,6 +92,10 @@ const getStudentById = async (req, res, next) => {
       },
       { password: false }
     );
+    if (!result) {
+      res.status(500).json({ message: "Student Not Found" });
+      return;
+    }
     res.json(result);
   } catch (error) {
     return res
