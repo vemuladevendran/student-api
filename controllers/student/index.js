@@ -38,7 +38,8 @@ const createStudent = async (req, res) => {
     if (req.file?.originalname) {
       const fileExt = req.file.originalname.split(".").pop();
       await fs.rename(req.file.path, `${req.file.path}.${fileExt}`);
-      const staticHost = "http://localhost:3000";
+      // const staticHost = "http://localhost:3000";
+      const staticHost = "https://studentmanagmentdb.herokuapp.com";
       req.body.photo = `${staticHost}/static/students/${req.file.filename}.${fileExt}`;
     }
 
