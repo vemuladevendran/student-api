@@ -14,7 +14,7 @@ const generateOtp = async (id) => {
       }),
       userId: id,
     });
-
+    console.log(otpDoc.otp);
     return otpDoc.otp;
   } catch (error) {
     console.error(error);
@@ -23,8 +23,9 @@ const generateOtp = async (id) => {
 
 const verifyOtp = async (id, otp) => {
   try {
+    console.log(id, otp)
     const otpObj = await Otp.findOne({ userId: id });
-    // console.log(otpObj)
+    console.log(otpObj)
     if (!otpObj) {
       return false;
     }
