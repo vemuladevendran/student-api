@@ -8,8 +8,8 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     host: "smtp.gmail.com",
     auth: {
-        user: 'kodetech100@gmail.com', // generated ethereal user
-        pass: '9445296380', // generated ethereal password
+        user: 'studentdatabasemanagment@gmail.com', // generated ethereal user
+        pass: 'srk.srk.srk', // generated ethereal password
     },
 });
 
@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 
 const sendOtp = ({ reciver, otp, emailContent }) => {
     const mailOptions = {
-        from: 'kodetech100@gmail.com',
+        from: 'studentdatabasemanagment@gmail.com',
         to: reciver,
         subject: 'OTP',
         html: emailContent
