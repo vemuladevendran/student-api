@@ -27,6 +27,7 @@ const studentLogin = async (req, res, next) => {
 
     const token = Token.generate({
       id: student.id,
+      rollNumber: student.rollNumber,
       branch: student.branch,
       section: student.section,
     });
