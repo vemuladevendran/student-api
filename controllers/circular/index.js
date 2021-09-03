@@ -46,7 +46,6 @@ const getCircularByBranch = async (req, res) => {
     try {
 
         const branch = req.params.branch;
-
         const result = await Circular.find({
             isDeleted: false,
             $or: [
@@ -54,8 +53,7 @@ const getCircularByBranch = async (req, res) => {
                 { circularFor: branch }
             ]
         })
-
-
+      return res.json(result);
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: error.message });

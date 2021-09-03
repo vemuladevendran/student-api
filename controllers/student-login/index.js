@@ -6,14 +6,16 @@ const Student = require("../../models/student");
 const studentLogin = async (req, res, next) => {
   try {
     // checking email
-    const student = await Student.findOne({ rollNumber: req.body.rollNumber });
+    const rollNumber = (req.body.rollNumber).toUpperCase();
+    const student = await Student.findOne({ rollNumber: rollNumber });
     if (!student) {
       console.error("student not found");
       return res.status(400).json({ message: "Invalid RollNumber" });
     }
     //  checking password
+    const password = (req.body.password).toUpperCase();
     const isPasswordMatch = await PasswordServe.verify(
-      req.body.password,
+      password,
       student.password
     );
 
