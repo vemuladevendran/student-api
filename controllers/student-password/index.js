@@ -49,8 +49,9 @@ const updateStudentPassword = async (req, res) => {
 // forget password
 const forgetStudentPassword = async (req, res) => {
   try {
+    const rollNumber = (req.body.rollNumber).toUpperCase();
     const student = await Student.findOne({
-      rollNumber: req.body.rollNumber,
+      rollNumber: rollNumber,
       isDeleted: false,
     });
     // cheaking user
