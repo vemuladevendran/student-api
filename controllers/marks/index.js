@@ -38,7 +38,7 @@ const getMarks = async (req, res) => {
 
 
 
-    const result = await Marks.find(filters);
+    const result = await Marks.find(filters).sort({ createdAt : 'descending'});;
     return res.json(result);
   } catch (error) {
     console.log(error);
@@ -55,7 +55,7 @@ const getMarksByRollnumber = async (req, res) => {
     const result = await Marks.find({
       isDeleted: false,
       rollNumber: req?.params?.rollNumber,
-    });
+    }).sort({ createdAt : 'descending'});;
     res.json(result);
   } catch (error) {
     console.log(error);

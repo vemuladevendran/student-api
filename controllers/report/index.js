@@ -35,7 +35,7 @@ const createReport = async (req, res) => {
 
 const getReport = async (req, res) => {
   try {
-    const result = await Report.find({ isDeleted: false });
+    const result = await Report.find({ isDeleted: false }).sort({ createdAt : 'descending'});;
     return res.json(result);
   } catch (error) {
     console.error(error);
@@ -51,7 +51,7 @@ const getReportByRollNumber = async (req, res) => {
     const result = await Report.find({
       isDeleted: false,
       studentRollNumber: rollNumber,
-    });
+    }).sort({ createdAt: 'descending' });
     return res.json(result);
   } catch (error) {
     console.error(error);
