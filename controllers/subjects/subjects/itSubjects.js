@@ -1,74 +1,100 @@
-'use strict'
+"use strict";
 
 const ItSubjects = {
+  FirstSemester: [
+    "Communicative English",
+    "Engineering Mathematics I ",
+    "Engineering Physics",
+    "Communication Skills",
+    "Problem Solving and Python Programming",
+    "Engineering Graphics",
+  ],
+  SecondSemester: [
+    "Technical English",
+    `Engineering Mathematics II `,
+    `Physics for Information 
+        Science`,
+    `Basic Electrical, 
+        Electronics and 
+        Measurement 
+        Engineering`,
+    `nformation Technology 
+        Essentials `,
+    "Programming in C ",
+  ],
 
-    FirstSemester: [
-        'Physics',
-        'Chemistry',
-        'Maths',
-        'Communication Skills',
-        'Engineering mechanics',
-        'Basic Electrical Engineering',
-        'Engineering Graphics',
-    ],
-    SecondSemester: [
-        'Mathematics',
-        'Data Structure & Algorithms',
-        'Circuit Theory & Networks ',
-        'Computer Organisation ',
-        'Digital Electronics & Logic Design ',
-        'Principles of Programming Language ',
-    ],
+  ThirdSemester: [
+    `Discrete 
+   Mathematics `,
+    `Digital 
+  Principles and 
+  System Design `,
+    `Data Structures `,
+    `Object 
+   Oriented 
+   Programming`,
+    `Analog and 
+    Digital 
+    Communication`,
+  ],
 
-    ThirdSemester: [
-        'Introduction to Electronics',
-        'Introduction to Material Science and Engineering 	',
-        'Introduction to Bioscience and Technology ',
-        'Discrete Structures ',
-        'Signals and Systems ',
-        'Introduction to Electronics Laboratory ',
-        'Signals and Systems Laboratory',
-    ],
+  FourthSemester: [
+    ` Probability 
+   and Statistics`,
+    `Computer 
+   Architecture `,
+    "Database Management Systems",
+    `Design and 
+   Analysis of 
+   Algorithms `,
+    `Operating 
+   Systems `,
+    `Environmental 
+   Science and 
+   Engineering`,
+  ],
 
-    FourthSemester: [
-        '  Design and Analysis of Algorithms ',
-        '  Digital Electronics Circuits ',
-        ' Design and Analysis of Algorithms Laboratory',
-        'Digital Electronics Circuits Laboratory',
-    ],
+  FifthSemester: [
+    `Algebra and 
+   Number Theory`,
+    `Computer 
+    Networks`,
+    `Microprocessors 
+   and 
+   Microcontrollers `,
+    `Web 
+    Technology`,
+    `Software 
+    Engineering `,
+    `Open Elective I `,
+  ],
+  SixthSemester: [
+    `Computational Intelligence `,
+    `Object Oriented Analysis and 
+    Design`,
+    `Mobile Communication`,
+    `Big Data Analytics `,
+    `Computer Graphics and 
+    Multimedia`,
+    `Professional Elective I`,
+  ],
 
-    FifthSemester: [
-        ' Information Theory and Coding',
-        'Cyber Security',
-        'Web tech',
-        'Design and Analysis of Algorithms',
-        'Database Management Systems',
-        'Principles of Programming Languages',
-    ],
-    SixthSemester: [
-        'Management of Information Systems',
-        'Computer Networks',
-        'Software Engineering',
-        'Compiler Design',
-        'Artificial Intelligence',
-    ],
+  SeventhSemester: [
+    " Principles of Management ",
+    `Cryptography and Network 
+    Security`,
+    `Cloud Computing`,
+    `Open Elective II`,
+    "Professional Elective II",
+    `Professional 
+    Elective III`,
+  ],
 
-    SeventhSemester: [
-        ' Mobile Computing ',
-        'Applied Graph Theory',
-        'Theory of Computation',
-        'Principles of Programming Languages ',
-        'Computational Geometry',
-    ],
+  EightSemester: [
+    `Professional  
+  Elective IV `,
+    `Professional Elective V `,
+  ],
+};
 
-
-    EightSemester: [
-        'Breadth',
-        'Elective4',
-        'Elective',
-        'Project',
-    ]
-
-}
-
-module.exports = ItSubjects
+module.exports = ItSubjects;
