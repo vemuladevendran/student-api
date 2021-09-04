@@ -7,7 +7,10 @@ const studentLogin = async (req, res, next) => {
   try {
     // checking email
     const rollNumber = (req.body.rollNumber).toUpperCase();
-    const student = await Student.findOne({ rollNumber: rollNumber });
+    const student = await Student.findOne({
+      isDeleted: false,
+      rollNumber: rollNumber
+    });
     if (!student) {
       console.error("student not found");
       return res.status(400).json({ message: "Invalid RollNumber" });
