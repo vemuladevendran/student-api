@@ -70,7 +70,7 @@ const getStudents = async (req, res) => {
   }
 
   try {
-    const result = await Student.find(filters);
+    const result = await Student.find(filters).sort({rollNumber: 'ascending'});
     return res.json(result);
   } catch (error) {
     console.error(error);
