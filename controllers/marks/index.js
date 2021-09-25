@@ -35,10 +35,7 @@ const getMarks = async (req, res) => {
   if(req.query.section) {
     filters.section = req.query.section;
   }
-
-
-
-    const result = await Marks.find(filters).sort({ createdAt : 'descending'});;
+    const result = await Marks.find(filters).sort({rollNumber: 'ascending'});
     return res.json(result);
   } catch (error) {
     console.log(error);
