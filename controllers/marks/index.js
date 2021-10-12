@@ -1,5 +1,5 @@
-const marks = require("../../models/marks");
 const Marks = require("../../models/marks");
+const Users = require("../../models/users");
 
 // creating marks
 const createMarks = async (req, res) => {
