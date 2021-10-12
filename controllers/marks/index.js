@@ -4,7 +4,13 @@ const Marks = require("../../models/marks");
 // creating marks
 const createMarks = async (req, res) => {
   try {
-    console.log(req.body + "abc");
+    // checking creating user
+    const creatingUser = await Users.findOne({ id: req.query.id });
+    if (!creatingUser) {
+      return res.status(400).json({ message: "Invaild details" });
+    }
+    req.body.createdBy = creatingUser.firstName;
+
     const data = await Marks.create(req.body);
     res.send(200).json({ message: "Marks Created" });
   } catch (error) {
