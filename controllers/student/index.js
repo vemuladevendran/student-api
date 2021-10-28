@@ -39,7 +39,7 @@ const createStudent = async (req, res) => {
       const fileExt = req.file.originalname.split(".").pop();
       await fs.rename(req.file.path, `${req.file.path}.${fileExt}`);
       // const staticHost = "http://localhost:5000";
-      const staticHost = "https://studentmanagmentdb.herokuapp.com";
+      const staticHost = "https://api.pecstudents.engineer";
       req.body.photo = `${staticHost}/static/students/${req.file.filename}.${fileExt}`;
     }
     req.body.password = await PasswordServe.hash(req.body.examNumber);
@@ -135,7 +135,7 @@ const updateStudent = async (req, res) => {
       const fileExt = req.file.originalname.split(".").pop();
       await fs.rename(req.file.path, `${req.file.path}.${fileExt}`);
       // const staticHost = "http://localhost:3000";
-      const staticHost = "https://studentmanagmentdb.herokuapp.com";
+      const staticHost = "https://api.pecstudents.engineer";
       req.body.photo = `${staticHost}/static/students/${req.file.filename}.${fileExt}`;
     }
 
