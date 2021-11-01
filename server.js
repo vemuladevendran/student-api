@@ -10,6 +10,7 @@ const circularRoutes = require('./routes/circular');
 const ReportRoutes = require('./routes/report');
 const marksRoutes = require('./routes/marks');
 const subjectRoutes = require('./routes/subjects');
+const announcementRoutes = require('./routes/announcement');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
@@ -27,6 +28,7 @@ circularRoutes(app);
 ReportRoutes(app);
 marksRoutes(app);
 subjectRoutes(app);
+announcementRoutes(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
